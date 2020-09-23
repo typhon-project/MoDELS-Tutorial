@@ -1,0 +1,75 @@
+entity Review{
+	id : string[32] 
+	content : string[32] 
+	product -> Product[1]
+}
+
+
+entity Product{
+	id : string[32]
+	name : string[32]
+	description : string[32]
+	
+	orders -> OrderProduct[0..*]
+	review:->Review."Review.product"[0..*]
+}
+
+
+entity OrderProduct{
+	id : string[32]
+	product_date : datetime
+	totalAmount : bigint
+	paidWith : string
+	products -> Product.products[0..*]
+	users -> User."User.orders"[1]
+	
+}
+
+
+entity User{
+	id : string[32]
+	name : string[32]
+	
+	comments : string
+	paymentsDetails : string
+	orders -> OrderProduct[0..*]
+}
+
+
+
+
+
+
+
+relationaldb RelationalDatabase{
+	tables{
+		table {
+			OrderDB : OrderProduct
+			index orderIndex {
+				attributes (id)
+			}
+			idSpec (id)
+		}
+		table {
+			UserDB : User
+			index  userIndex{
+				attributes (name)
+				}
+			idSpec (name)
+		}
+		table {
+			ProductDB : Product
+			index productIndex{
+				attributes (name)
+			}
+			idSpec (name)
+		}
+		
+	}
+}
+
+documentdb DocumentDatabase{
+	collections{
+			ReviewDB : Review
+	}
+}
