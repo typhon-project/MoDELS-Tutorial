@@ -1,0 +1,120 @@
+{
+
+	"rabbit_version": "3.8.5",
+
+	"rabbitmq_version": "3.8.5",
+
+	"product_name": "RabbitMQ",
+
+	"product_version": "3.8.5",
+
+	"users": [{
+
+		"name": "typhon",
+
+		"password_hash": "JcZ8LHLWijnW0CcM6oHH9zPczx5ZRaMT6kLm8n8ruktKwbiD",
+
+		"hashing_algorithm": "rabbit_password_hashing_sha256",
+
+		"tags": "administrator"
+
+	}],
+
+	"vhosts": [{
+
+		"name": "/"
+
+	}],
+
+	"permissions": [{
+
+		"user": "typhon",
+
+		"vhost": "/",
+
+		"configure": ".*",
+
+		"write": ".*",
+
+		"read": ".*"
+
+	}],
+
+	"topic_permissions": [{
+
+		"user": "typhon",
+
+		"vhost": "/",
+
+		"exchange": "",
+
+		"write": ".*",
+
+		"read": ".*"
+
+	}],
+
+	"parameters": [],
+
+	"global_parameters": [{
+
+		"name": "cluster_name",
+
+		"value": "rabbit@my-rabbit"
+
+	}, {
+
+		"name": "internal_cluster_id",
+
+		"value": "rabbitmq-cluster-id-6Cw5N3JILP_zQqfVzkAOlg"
+
+	}],
+
+	"policies": [],
+
+	"queues": [{
+
+		"name": "typhon-jobs",
+
+		"vhost": "/",
+
+		"durable": true,
+
+		"auto_delete": false,
+
+		"arguments": {
+
+			"x-queue-type": "classic"
+
+		}
+
+	}],
+
+	"exchanges": [{
+
+		"name": "typhon-nlae",
+
+		"vhost": "/",
+
+		"type": "direct",
+
+		"durable": true,
+
+		"auto_delete": false,
+
+		"internal": false,
+
+		"arguments": {}
+
+	}],
+
+	"bindings": [{
+                "source":"typhon-nlae",
+                "vhost":"/",
+                "destination":"typhon-jobs",
+                "destination_type":"queue",
+                "routing_key":"typhon-jobs",
+                "arguments":{}
+       }]
+
+}

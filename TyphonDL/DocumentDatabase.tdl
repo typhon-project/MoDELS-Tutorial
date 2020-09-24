@@ -1,0 +1,6 @@
+database DocumentDatabase : Mongo {
+	credentials {
+		username = admin ;
+		password = tlrDTRVeRuCnlZsa ;
+	}
+}
