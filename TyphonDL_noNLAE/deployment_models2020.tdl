@@ -1,0 +1,21 @@
+import ecommerce_models2020.xmi
+import DocumentDatabase.tdl
+import RelationalDatabase.tdl
+import dbTypes.tdl
+containertype Docker
+clustertype DockerCompose
+platformtype localhost
+platform platformName : localhost {
+	cluster clusterName : DockerCompose {
+		application Polystore {
+			container documentdatabase : Docker {
+				deploys DocumentDatabase
+				uri = documentdatabase:27017 ;
+			}
+			container relationaldatabase : Docker {
+				deploys RelationalDatabase
+				uri = relationaldatabase:3306 ;
+			}
+		}
+	}
+}
