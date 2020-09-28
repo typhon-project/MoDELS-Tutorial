@@ -86,7 +86,6 @@ services:
     environment:
       JOB_MANAGER_RPC_ADDRESS: jobmanager
     volumes:
-      - type: volume
       - ./flinkJar/:/opt/flink/usrlib/
     ports:
       - target: 8081
