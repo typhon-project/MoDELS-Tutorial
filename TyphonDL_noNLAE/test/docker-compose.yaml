@@ -36,6 +36,9 @@ services:
     restart: always
   polystore-ui:
     image: clms/typhon-polystore-ui:latest
+    environment:
+      API_PORT: "8080"
+      API_HOST: "typhon-polystore-service"
     depends_on:
       - typhon-polystore-service
     ports:
@@ -48,11 +51,11 @@ services:
     image: wurstmeister/kafka:2.12-2.4.0
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_LISTENERS: OUTSIDE://:29092, INSIDE://:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT, OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:29092, INSIDE://:9092
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://localhost:29092, INSIDE://:9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
     depends_on:
       - zookeeper

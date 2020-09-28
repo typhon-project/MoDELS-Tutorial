@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <typhonDL:DeploymentModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:typhonDL="http://www.typhon.org/dsls/xtext/TyphonDL">
   <guiMetaInformation xsi:type="typhonDL:Import" relativePath="ecommerce_models2020.xmi"/>
-  <guiMetaInformation xsi:type="typhonDL:Import" relativePath="DocumentDatabase.tdl"/>
   <guiMetaInformation xsi:type="typhonDL:Import" relativePath="RelationalDatabase.tdl"/>
+  <guiMetaInformation xsi:type="typhonDL:Import" relativePath="DocumentDatabase.tdl"/>
   <guiMetaInformation xsi:type="typhonDL:Import" relativePath="dbTypes.tdl"/>
   <elements xsi:type="typhonDL:ContainerType" name="Docker"/>
   <elements xsi:type="typhonDL:ClusterType" name="DockerCompose"/>
@@ -10,13 +10,13 @@
   <elements xsi:type="typhonDL:Platform" name="platformName" type="//@elements.2">
     <clusters name="clusterName" type="//@elements.1">
       <applications name="Polystore">
-        <containers name="documentdatabase" type="//@elements.0">
-          <deploys reference="//@elements.4"/>
-          <uri value="documentdatabase:27017"/>
-        </containers>
         <containers name="relationaldatabase" type="//@elements.0">
-          <deploys reference="//@elements.5"/>
+          <deploys reference="//@elements.4"/>
           <uri value="relationaldatabase:3306"/>
+        </containers>
+        <containers name="documentdatabase" type="//@elements.0">
+          <deploys reference="//@elements.5"/>
+          <uri value="documentdatabase:27017"/>
         </containers>
         <containers name="polystore-mongo" type="//@elements.0">
           <deploys reference="//@elements.8"/>
@@ -106,7 +106,6 @@
         </containers>
         <containers name="evolution-mongo" type="//@elements.0">
           <deploys reference="//@elements.18"/>
-          <uri value="evolution-mongo:evolution-backend"/>
         </containers>
         <containers name="evolution-java" type="//@elements.0">
           <deploys reference="//@elements.17"/>
@@ -117,7 +116,6 @@
         <containers name="evolution-backend" type="//@elements.0">
           <deploys reference="//@elements.19"/>
           <depends_on reference="//@elements.3/@clusters.0/@applications.0/@containers.11"/>
-          <uri value="evolution-backend:3000"/>
         </containers>
         <containers name="evolution-frontend" type="//@elements.0">
           <deploys reference="//@elements.20"/>
@@ -131,19 +129,19 @@
       </applications>
     </clusters>
   </elements>
-  <elements xsi:type="typhonDL:DB" name="DocumentDatabase" type="//@elements.6">
-    <credentials username="chooseUsername" password="choosePassword"/>
-  </elements>
-  <elements xsi:type="typhonDL:DB" name="RelationalDatabase" type="//@elements.7">
+  <elements xsi:type="typhonDL:DB" name="RelationalDatabase" type="//@elements.6">
     <credentials username="root" password="choosePassword"/>
   </elements>
-  <elements xsi:type="typhonDL:DBType" name="Mongo">
-    <image value="mongo:latest"/>
+  <elements xsi:type="typhonDL:DB" name="DocumentDatabase" type="//@elements.7">
+    <credentials username="chooseUsername" password="choosePassword"/>
   </elements>
   <elements xsi:type="typhonDL:DBType" name="MariaDB">
     <image value="mariadb:latest"/>
   </elements>
-  <elements xsi:type="typhonDL:DB" name="polystore_db" type="//@elements.6">
+  <elements xsi:type="typhonDL:DBType" name="Mongo">
+    <image value="mongo:latest"/>
+  </elements>
+  <elements xsi:type="typhonDL:DB" name="polystore_db" type="//@elements.7">
     <environment>
       <parameters name="MONGO_INITDB_DATABASE" value="admin"/>
     </environment>
@@ -208,7 +206,7 @@
       <parameters name="WEBSERVICE_URL" value="http://typhon-polystore-service:8080/"/>
     </environment>
   </elements>
-  <elements xsi:type="typhonDL:DB" name="evolution-mongo" type="//@elements.6">
+  <elements xsi:type="typhonDL:DB" name="evolution-mongo" type="//@elements.7">
     <environment>
       <parameters name="MONGO_INITDB_DATABASE" value="Analytics"/>
     </environment>
