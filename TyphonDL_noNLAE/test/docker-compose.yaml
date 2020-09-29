@@ -97,6 +97,9 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
       MONGO_INITDB_DATABASE: Analytics
+    ports:
+      - target: 27017
+        published: 5500
   evolution-java:
     image: meuriceloup/typhon-evolution-analytics-java:latest
     environment:
@@ -128,6 +131,9 @@ services:
       WEBSERVICE_URL: http://typhon-polystore-service:8080/
     depends_on:
       - evolution-mongo
+    ports:
+      - target: 3000
+        published: 3000  
   evolution-frontend:
     image: meuriceloup/typhon-evolution-analytics-client:latest
     environment:
