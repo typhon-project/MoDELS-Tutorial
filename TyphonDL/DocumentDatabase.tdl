@@ -1,6 +1,6 @@
 database DocumentDatabase : Mongo {
 	credentials {
-		username = chooseUsername ;
-		password = choosePassword ;
+		username = user1 ;
+		password = sU2SKFFVqZtV5PLD ;
 	}
 }

@@ -116,6 +116,10 @@
         <containers name="evolution-backend" type="//@elements.0">
           <deploys reference="//@elements.19"/>
           <depends_on reference="//@elements.3/@clusters.0/@applications.0/@containers.11"/>
+          <ports>
+            <key_values name="target" value="3000"/>
+            <key_values name="published" value="3000"/>
+          </ports>
         </containers>
         <containers name="evolution-frontend" type="//@elements.0">
           <deploys reference="//@elements.20"/>
@@ -130,10 +134,10 @@
     </clusters>
   </elements>
   <elements xsi:type="typhonDL:DB" name="RelationalDatabase" type="//@elements.6">
-    <credentials username="root" password="choosePassword"/>
+    <credentials username="root" password="8fpvTFZvK7fRTkc5"/>
   </elements>
   <elements xsi:type="typhonDL:DB" name="DocumentDatabase" type="//@elements.7">
-    <credentials username="chooseUsername" password="choosePassword"/>
+    <credentials username="user1" password="sU2SKFFVqZtV5PLD"/>
   </elements>
   <elements xsi:type="typhonDL:DBType" name="MariaDB">
     <image value="mariadb:latest"/>
@@ -152,13 +156,12 @@
   </elements>
   <elements xsi:type="typhonDL:Software" name="polystore_ui">
     <image value="clms/typhon-polystore-ui:latest"/>
-    <environment>
-      <parameters name="API_PORT" value="&quot;8080&quot;"/>
-      <parameters name="API_HOST" value="&quot;typhon-polystore-service&quot;"/>
-    </environment>
   </elements>
   <elements xsi:type="typhonDL:Software" name="polystore_ql">
     <image value="swatengineering/typhonql-server"/>
+    <environment>
+      <parameters name="TZ" value="Europe/Berlin"/>
+    </environment>
   </elements>
   <elements xsi:type="typhonDL:Software" name="zookeeper">
     <image value="wurstmeister/zookeeper"/>
