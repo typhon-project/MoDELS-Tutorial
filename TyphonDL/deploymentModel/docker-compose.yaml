@@ -4,12 +4,12 @@ services:
   relationaldatabase:
     image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: choosePassword
+      MYSQL_ROOT_PASSWORD: 8fpvTFZvK7fRTkc5
   documentdatabase:
     image: mongo:latest
     environment:
-      MONGO_INITDB_ROOT_USERNAME: chooseUsername
-      MONGO_INITDB_ROOT_PASSWORD: choosePassword
+      MONGO_INITDB_ROOT_USERNAME: user1
+      MONGO_INITDB_ROOT_PASSWORD: sU2SKFFVqZtV5PLD
   polystore-mongo:
     image: mongo:latest
     environment:
@@ -36,9 +36,6 @@ services:
     restart: always
   polystore-ui:
     image: clms/typhon-polystore-ui:latest
-    environment:
-      API_PORT: "8080"
-      API_HOST: "typhon-polystore-service"
     depends_on:
       - typhon-polystore-service
     ports:
@@ -46,6 +43,8 @@ services:
         published: 4200
   typhonql-server:
     image: swatengineering/typhonql-server
+    environment:
+      TZ: Europe/Berlin
     restart: always
   kafka:
     image: wurstmeister/kafka:2.12-2.4.0
@@ -133,7 +132,7 @@ services:
       - evolution-mongo
     ports:
       - target: 3000
-        published: 3000  
+        published: 3000
   evolution-frontend:
     image: meuriceloup/typhon-evolution-analytics-client:latest
     environment:

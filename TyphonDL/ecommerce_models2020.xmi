@@ -52,6 +52,25 @@
       <type xsi:type="typhonml:StringType"/>
     </attributes>
     <relations name="orders" type="//@entities.2" cardinality="zero_many"/>
+    <relations name="address" type="//@entities.4" cardinality="one"/>
+  </entities>
+  <entities name="Address">
+    <attributes xsi:type="typhonml:Attribute" name="streetName">
+      <type xsi:type="typhonml:StringType" maxSize="32"/>
+    </attributes>
+    <attributes xsi:type="typhonml:Attribute" name="streetNumber">
+      <type xsi:type="typhonml:BigintType"/>
+    </attributes>
+    <attributes xsi:type="typhonml:Attribute" name="zipcode">
+      <type xsi:type="typhonml:StringType" maxSize="32"/>
+    </attributes>
+    <attributes xsi:type="typhonml:Attribute" name="city">
+      <type xsi:type="typhonml:StringType" maxSize="32"/>
+    </attributes>
+    <attributes xsi:type="typhonml:Attribute" name="country">
+      <type xsi:type="typhonml:StringType" maxSize="32"/>
+    </attributes>
+    <relations name="user" type="//@entities.3" cardinality="one" opposite="//@entities.3/@relations.1"/>
   </entities>
   <databases xsi:type="typhonml:RelationalDB" name="RelationalDatabase">
     <tables name="OrderDB" entity="//@entities.2">
@@ -62,6 +81,7 @@
       <indexSpec name="userIndex" attributes="//@entities.3/@attributes.1"/>
       <idSpec attributes="//@entities.3/@attributes.1"/>
     </tables>
+    <tables name="AddressDB" entity="//@entities.4"/>
     <tables name="ProductDB" entity="//@entities.1">
       <indexSpec name="productIndex" attributes="//@entities.1/@attributes.1"/>
       <idSpec attributes="//@entities.1/@attributes.1"/>
