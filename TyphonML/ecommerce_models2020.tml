@@ -17,7 +17,7 @@ entity OrderProduct{
 	id : string[32]
 	product_date : datetime
 	totalAmount : bigint
-	paidWith : string
+	paidWith : string[32]
 	products -> Product.products[0..*]
 	users -> User."User.orders"[1]
 	
@@ -27,8 +27,8 @@ entity User{
 	id : string[32]
 	name : string[32]
 	
-	comments : string
-	paymentsDetails : string
+	comments : string[32]
+	paymentsDetails : string[32]
 	orders -> OrderProduct[0..*]
 	address -> Address[1]
 }
