@@ -1,9 +1,8 @@
 
 ////// 
-////// ****** IMPORTANT: execute Reset Database from the context menu first!
+////// IMPORTANT: execute Reset Database from the right-click context menu first!
 //////  
  
-
 
 insert Address {
   @id: #scp,
@@ -46,7 +45,15 @@ insert Product {
   orders: []
 }
 
-from Product p select p
+insert Product {
+  @id: #radio,
+  id: "radio",
+  name: "Radio",
+  description: "Old Skool"
+}
+
+
+from Product p select p.name
 
 insert Review {
  @id: #badtv,
@@ -55,13 +62,30 @@ insert Review {
  product: #tv
 }
 
-from Review r select r
+from Review r select r.content
 
+// insert lone, and than add
+
+insert Review {
+ @id: #goodradio,
+ id: "goodradio",
+ content: "Nice sound"
+}
+
+// linking reviews and products with update
+update Product p where p.@id == #radio 
+set {
+  review +: [#goodradio]
+}
+
+from Product p, Review r
+select p.name, r.content
+where p.review == r.@id
 
 // bug: don't select p.review
-from Product p, Review r 
-select p.name, r.content
-where p.name == "TV", r.@id == p.review
+//from Product p, Review r 
+//select p.name, r.content 
+//where p.name == "TV", r.@id == p.review
 
 
 // using an inverse
@@ -78,6 +102,8 @@ from Address a select a.city
 // but products own reviews
 delete Product p where p.name == "TV"
 
-
+// no more reviews for #tv
 from Review r select r.content
 where r.product == #tv
+
+
