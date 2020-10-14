@@ -17,7 +17,7 @@ You need to install Eclipse with support for Epsilon and modelling tools. Instal
 
 ![Install new software](https://github.com/typhon-project/MoDELS-Tutorial/blob/master/images/eclipse_new_software.png)
 
-* Enter in the "Work with" filed the following updatesite: [http://typhon.clmsuk.com:8082/](http://typhon.clmsuk.com:8082/) and select all the available plugins as shown below
+* Enter in the "Work with" filed the following updatesite: [http://typhon.clmsuk.com/models2020](http://typhon.clmsuk.com/models2020) and select all the available plugins as shown below
 
 ![Install plugins](https://github.com/typhon-project/MoDELS-Tutorial/blob/master/images/eclipse_update_site.png)
 
