@@ -1,8 +1,9 @@
-// *** example scratch file *** 
-// write your queries here and run them by right clicking on them
 
-from User u
-select u.name
+////// 
+////// ****** IMPORTANT: execute Reset Database from the context menu first!
+//////  
+ 
+
 
 insert Address {
   @id: #scp,
@@ -23,6 +24,8 @@ insert Address {
   country: "USA"
 }
 
+from Address a select a.city
+
 insert User {
   @id: #joe,
   id: "joe",
@@ -32,13 +35,18 @@ insert User {
   address: #cp
 }
 
+from User u select u.name
+
 insert Product {
   @id: #tv,
   id: "tv",
   name: "TV",
   description: "Very flat",
-  review: []
+  review: [],
+  orders: []
 }
+
+from Product p select p
 
 insert Review {
  @id: #badtv,
@@ -47,10 +55,29 @@ insert Review {
  product: #tv
 }
 
-from Product p 
-select p.name, p.review 
-where p.name == "TV"
+from Review r select r
 
 
+// bug: don't select p.review
+from Product p, Review r 
+select p.name, r.content
+where p.name == "TV", r.@id == p.review
 
 
+// using an inverse
+from Product p, Review r
+select p.name, r.content
+where p.name == "TV", r.product == p.@id
+
+
+delete User u where u.name == "Joey"
+
+// no cascade delete 
+from Address a select a.city
+
+// but products own reviews
+delete Product p where p.name == "TV"
+
+
+from Review r select r.content
+where r.product == #tv
