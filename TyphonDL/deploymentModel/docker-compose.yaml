@@ -19,7 +19,7 @@ services:
     volumes:
       - ./models/:/docker-entrypoint-initdb.d
   typhon-polystore-service:
-    image: clms/typhon-polystore-api:latest
+    image: clms/typhon-polystore-api:models2020
     ports:
       - target: 8080
         published: 8080
@@ -35,14 +35,14 @@ services:
       - com.clms.typhonapi.Application
     restart: always
   polystore-ui:
-    image: clms/typhon-polystore-ui:latest
+    image: clms/typhon-polystore-ui:models2020
     depends_on:
       - typhon-polystore-service
     ports:
       - target: 4200
         published: 4200
   typhonql-server:
-    image: swatengineering/typhonql-server
+    image: swatengineering/typhonql-server:models2020
     environment:
       TZ: Europe/Berlin
     restart: always
@@ -62,7 +62,7 @@ services:
       - target: 29092
         published: 29092
   authAll:
-    image: zolotas4/typhon-analytics-auth-all
+    image: zolotas4/typhon-analytics-auth-all:models2020
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
@@ -100,7 +100,7 @@ services:
       - target: 27017
         published: 5500
   evolution-java:
-    image: meuriceloup/typhon-evolution-analytics-java:latest
+    image: meuriceloup/typhon-evolution-analytics-java:models2020
     environment:
       ANALYTICS_DB_USER: admin
       ANALYTICS_DB_NAME: Analytics
@@ -118,7 +118,7 @@ services:
       - typhon-polystore-service
       - kafka
   evolution-backend:
-    image: meuriceloup/typhon-evolution-analytics-backend:latest
+    image: meuriceloup/typhon-evolution-analytics-backend:models2020
     environment:
       ANALYTICS_DB_URL: mongodb://evolution-mongo:27017/
       BACKEND_DEPLOYMENT_PORT: 3000
@@ -134,7 +134,7 @@ services:
       - target: 3000
         published: 3000
   evolution-frontend:
-    image: meuriceloup/typhon-evolution-analytics-client:latest
+    image: meuriceloup/typhon-evolution-analytics-client:models2020
     environment:
       BACKEND_ENDPOINT: http://evolution-backend:3000
     depends_on:

@@ -152,13 +152,13 @@
     <credentials username="admin" password="admin"/>
   </elements>
   <elements xsi:type="typhonDL:Software" name="polystore_api">
-    <image value="clms/typhon-polystore-api:latest"/>
+    <image value="clms/typhon-polystore-api:models2020"/>
   </elements>
   <elements xsi:type="typhonDL:Software" name="polystore_ui">
-    <image value="clms/typhon-polystore-ui:latest"/>
+    <image value="clms/typhon-polystore-ui:models2020"/>
   </elements>
   <elements xsi:type="typhonDL:Software" name="polystore_ql">
-    <image value="swatengineering/typhonql-server"/>
+    <image value="swatengineering/typhonql-server:models2020"/>
     <environment>
       <parameters name="TZ" value="Europe/Berlin"/>
     </environment>
@@ -191,10 +191,10 @@
     </environment>
   </elements>
   <elements xsi:type="typhonDL:Software" name="authAll">
-    <image value="zolotas4/typhon-analytics-auth-all"/>
+    <image value="zolotas4/typhon-analytics-auth-all:models2020"/>
   </elements>
   <elements xsi:type="typhonDL:Software" name="evolution-java">
-    <image value="meuriceloup/typhon-evolution-analytics-java:latest"/>
+    <image value="meuriceloup/typhon-evolution-analytics-java:models2020"/>
     <environment>
       <parameters name="ANALYTICS_DB_USER" value="admin"/>
       <parameters name="ANALYTICS_DB_NAME" value="Analytics"/>
@@ -216,7 +216,7 @@
     <credentials username="admin" password="admin"/>
   </elements>
   <elements xsi:type="typhonDL:Software" name="evolution-backend">
-    <image value="meuriceloup/typhon-evolution-analytics-backend:latest"/>
+    <image value="meuriceloup/typhon-evolution-analytics-backend:models2020"/>
     <environment>
       <parameters name="ANALYTICS_DB_URL" value="mongodb://evolution-mongo:27017/"/>
       <parameters name="BACKEND_DEPLOYMENT_PORT" value="3000"/>
@@ -229,7 +229,7 @@
     </environment>
   </elements>
   <elements xsi:type="typhonDL:Software" name="evolution-frontend">
-    <image value="meuriceloup/typhon-evolution-analytics-client:latest"/>
+    <image value="meuriceloup/typhon-evolution-analytics-client:models2020"/>
     <environment>
       <parameters name="BACKEND_ENDPOINT" value="http://evolution-backend:3000"/>
     </environment>
