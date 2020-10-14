@@ -1,0 +1,56 @@
+// *** example scratch file *** 
+// write your queries here and run them by right clicking on them
+
+from User u
+select u.name
+
+insert Address {
+  @id: #scp,
+  streetName: "Science Park",
+  streetNumber: 123,
+  zipcode: "1000 AB",
+  city: "Amsterdam",
+  country: "NL"
+}
+
+
+insert Address {
+  @id: #cp,
+  streetName: "Central Park",
+  streetNumber: 100,
+  zipcode: "something",
+  city: "New York City",
+  country: "USA"
+}
+
+insert User {
+  @id: #joe,
+  id: "joe",
+  name: "Joey",
+  paymentsDetails: "",
+  comments: "I'm a sample user",
+  address: #cp
+}
+
+insert Product {
+  @id: #tv,
+  id: "tv",
+  name: "TV",
+  description: "Very flat",
+  review: []
+}
+
+insert Review {
+ @id: #badtv,
+ id: "badtv",
+ content: "This is a very bad TV",
+ product: #tv
+}
+
+from Product p 
+select p.name, p.review 
+where p.name == "TV"
+
+
+
+
