@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
 
 public class GeneratorRunner {
 	
@@ -19,7 +19,7 @@ public class GeneratorRunner {
 		String name = "admin";
 		String password = "admin1@";
 		String authString = name + ":" + password;
-		String authStringEnc = new BASE64Encoder().encode(authString.getBytes());
+		String authStringEnc = Base64.getEncoder().encodeToString(authString.getBytes());
 		Client restClient = Client.create();
 		WebResource webResource = restClient.resource(url);
 		
