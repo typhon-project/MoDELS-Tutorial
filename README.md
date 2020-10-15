@@ -1,9 +1,9 @@
 # MoDELS-Tutorial
 
-Welcome to MoDELS Tutorial "[T7] Big Data Polystore Management with TYPHON". Here you will find all the needed information to install the necessary tools to follow the tutorial.
+Welcome to MoDELS Tutorial ["[T7] Big Data Polystore Management with TYPHON"](https://conf.researchr.org/details/models-2020/models-2020-tutorials/3/Big-Data-Polystore-Management-with-TYPHON). Here you will find all the needed information to install the necessary tools to follow the tutorial.
 
 ## Easy Setup Guide
-TYPHON Polystores are deloyed using Docker. Thus, if you only want to experiment with the already defined Polystore that will be used as a base for the tutorial you need to install Docker Desktop. Installation guides can be found [here](https://www.docker.com/get-started). To smoothly run the polystore you should [assign at least 6GB RAM](https://stackoverflow.com/questions/44533319/how-to-assign-more-memory-to-docker-container) to your Docker Machine.
+TYPHON Polystores are deloyed using Docker. Thus, if you only want to experiment with the already defined Polystore that will be used as a base for the tutorial you need to install Docker Desktop. Installation guides can be found [here](https://www.docker.com/get-started). To smoothly run the polystore you should [assign at least 8GB RAM](https://stackoverflow.com/questions/44533319/how-to-assign-more-memory-to-docker-container) to your Docker Machine.
 
 After you have Docker installed you need to checkout this repository (or simply download the code) and run the `docker-compose up -d` command in the folder `/TyphonDL/deploymentModel` where the `docker-compose.yaml` file is located. To run a version that consumes less resources run `docker-compose -f docker-compose-local-deployment.yaml up -d` instead.
 
