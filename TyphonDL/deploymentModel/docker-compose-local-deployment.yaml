@@ -69,7 +69,7 @@ services:
         published: 29092
     mem_limit: 512m
   authAll:
-    image: zolotas4/typhon-analytics-auth-all
+    image: zolotas4/typhon-analytics-auth-all:models2020
     mem_limit: 512m
   zookeeper:
     image: wurstmeister/zookeeper
