@@ -70,6 +70,7 @@ services:
     mem_limit: 512m
   authAll:
     image: zolotas4/typhon-analytics-auth-all
+    mem_limit: 512m
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
