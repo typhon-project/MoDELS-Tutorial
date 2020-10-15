@@ -1,0 +1,134 @@
+version: '3.7'
+
+services:
+  relationaldatabase:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 8fpvTFZvK7fRTkc5
+    mem_limit: 512m
+  documentdatabase:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user1
+      MONGO_INITDB_ROOT_PASSWORD: sU2SKFFVqZtV5PLD
+    mem_limit: 512m
+  polystore-mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - ./models/:/docker-entrypoint-initdb.d
+    mem_limit: 128m
+  typhon-polystore-service:
+    image: clms/typhon-polystore-api:models2020
+    ports:
+      - target: 8080
+        published: 8080
+    entrypoint:
+      - wait-for-it
+      - polystore-mongo:27017
+      - -t
+      - '60'
+      - --
+      - java
+      - -cp
+      - /app/resources:/app/classes:/app/libs/*
+      - com.clms.typhonapi.Application
+    restart: always
+    mem_limit: 512m
+  polystore-ui:
+    image: clms/typhon-polystore-ui:models2020
+    depends_on:
+      - typhon-polystore-service
+    ports:
+      - target: 4200
+        published: 4200
+    mem_limit: 128m
+  typhonql-server:
+    image: swatengineering/typhonql-server:models2020
+    environment:
+      TZ: Europe/Berlin
+    restart: always
+    mem_limit: 2G
+  kafka:
+    image: wurstmeister/kafka:2.12-2.4.0
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_LISTENERS: OUTSIDE://:29092, INSIDE://:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT, OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://localhost:29092, INSIDE://:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    depends_on:
+      - zookeeper
+    ports:
+      - target: 29092
+        published: 29092
+    mem_limit: 512m
+  authAll:
+    image: zolotas4/typhon-analytics-auth-all
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - target: 2181
+        published: 2181
+    mem_limit: 512m
+  evolution-mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: Analytics
+    ports:
+      - target: 27017
+        published: 5500
+    mem_limit: 256m
+  evolution-java:
+    image: meuriceloup/typhon-evolution-analytics-java:models2020
+    environment:
+      ANALYTICS_DB_USER: admin
+      ANALYTICS_DB_NAME: Analytics
+      KAFKA_CHANNEL_PORT: 9092
+      WEBSERVICE_PASSWORD: admin1@
+      ANALYTICS_DB_IP: evolution-mongo
+      WAKEUP_TIME_MS_FREQUENCY: 10000
+      WEBSERVICE_USERNAME: admin
+      KAFKA_CHANNEL_IP: kafka
+      ANALYTICS_DB_PWD: admin
+      ANALYTICS_DB_PORT: 27017
+      WEBSERVICE_URL: http://typhon-polystore-service:8080/
+    depends_on:
+      - evolution-mongo
+      - typhon-polystore-service
+      - kafka
+    mem_limit: 1G
+  evolution-backend:
+    image: meuriceloup/typhon-evolution-analytics-backend:models2020
+    environment:
+      ANALYTICS_DB_URL: mongodb://evolution-mongo:27017/
+      BACKEND_DEPLOYMENT_PORT: 3000
+      ANALYTICS_DB_USER: admin
+      ANALYTICS_DB_NAME: Analytics
+      ANALYTICS_DB_PWD: admin
+      WEBSERVICE_PASSWORD: admin1@
+      WEBSERVICE_USERNAME: admin
+      WEBSERVICE_URL: http://typhon-polystore-service:8080/
+    depends_on:
+      - evolution-mongo
+    ports:
+      - target: 3000
+        published: 3000
+    mem_limit: 1G
+  evolution-frontend:
+    image: meuriceloup/typhon-evolution-analytics-client:models2020
+    environment:
+      BACKEND_ENDPOINT: http://evolution-backend:3000
+    depends_on:
+      - evolution-backend
+    ports:
+      - target: 5000
+        published: 5000
+    mem_limit: 1G
