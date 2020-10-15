@@ -28,4 +28,13 @@ Click next, accept the license agreeement and when prompted restart Eclipse. TYP
 * Install Docker by following the instructions [here](https://www.docker.com/get-started).
 
 You will now be able to create your own Polystores, generate the deployment script and deploy them using Docker.
-  
+
+## Documentation of Typhon Components
+You can find the documentation (or reference to it) of each Typhon Component here:
+* [TyphonML](https://github.com/typhon-project/typhonml)
+* [TyphonDL](https://github.com/typhon-project/typhondl)
+* [TyphonQL](https://github.com/typhon-project/typhonql)
+* [Analytics]()
+* [Evolution](https://github.com/typhon-project/typhon-evolution)
+* [Polystore API](https://github.com/typhon-project/typhon-polystore-api) (used by the components)
+* [NLAE](https://github.com/typhon-project/typhon-nlae) (not part of the turorial)
