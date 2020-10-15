@@ -3,9 +3,11 @@
 Welcome to MoDELS Tutorial "[T7] Big Data Polystore Management with TYPHON". Here you will find all the needed information to install the necessary tools to follow the tutorial.
 
 ## Easy Setup Guide
-TYPHON Polystores are deloyed using Docker. Thus, if you only want to experiment with the already defined Polystore that will be used as a base for the tutorial you need to install Docker Desktop. Installation guides can be found [here](https://www.docker.com/get-started).
+TYPHON Polystores are deloyed using Docker. Thus, if you only want to experiment with the already defined Polystore that will be used as a base for the tutorial you need to install Docker Desktop. Installation guides can be found [here](https://www.docker.com/get-started). To smoothly run the polystore you should [assign at least 6GB RAM](https://stackoverflow.com/questions/44533319/how-to-assign-more-memory-to-docker-container) to your Docker Machine.
 
-After you have Docker install yuo need to checkout this repository (or simply download the code) and run the `docker-compose up` command in the folder `/TyphonDL/deploymentModel` where the `docker-compose.yaml` file is located.
+After you have Docker installed you need to checkout this repository (or simply download the code) and run the `docker-compose up -d` command in the folder `/TyphonDL/deploymentModel` where the `docker-compose.yaml` file is located. To run a version that consumes less resources run `docker-compose -f docker-compose-local-deployment.yaml up -d` instead.
+
+To check if all components are running use `docker ps -a`. To read container logs run `docker logs <containerName>`.
 
 ## Create you own Polystores
 TYPHON consists of a number of Domain-specific Languages (DSLs) that allow the definition of Polystore schemas and deployment details. These DSLs (namely the TyphonML and TyphonDL languaages) come as Eclipse plugins. Thus, one needs to firstly install Eclipse and then install the necessry plugins.
