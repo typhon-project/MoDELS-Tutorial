@@ -37,4 +37,4 @@ You can find the documentation (or reference to it) of each Typhon Component her
 * [Analytics]()
 * [Evolution](https://github.com/typhon-project/typhon-evolution)
 * [Polystore API](https://github.com/typhon-project/typhon-polystore-api) (used by the components)
-* [NLAE](https://github.com/typhon-project/typhon-nlae) (not part of the turorial)
+* [NLAE](https://github.com/typhon-project/typhon-nlae) (not part of the tutorial)
