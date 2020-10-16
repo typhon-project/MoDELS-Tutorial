@@ -1,0 +1,8 @@
+insert Address {
+  @id: #cp,
+  streetName: "Central Park",
+  streetNumber: 100,
+  zipcode: "something",
+  city: "New York City",
+  country: "USA"
+}

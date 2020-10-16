@@ -14,15 +14,6 @@ insert Address {
 }
 
 
-insert Address {
-  @id: #cp,
-  streetName: "Central Park",
-  streetNumber: 100,
-  zipcode: "something",
-  city: "New York City",
-  country: "USA"
-}
-
 from Address a select a.city
 
 insert User {
@@ -31,7 +22,7 @@ insert User {
   name: "Joey",
   paymentsDetails: "",
   comments: "I'm a sample user",
-  address: #cp
+  address: #scp
 }
 
 from User u select u.name
@@ -40,9 +31,7 @@ insert Product {
   @id: #tv,
   id: "tv",
   name: "TV",
-  description: "Very flat",
-  review: [],
-  orders: []
+  description: "Very flat"
 }
 
 insert Product {
@@ -59,7 +48,7 @@ insert Review {
  @id: #badtv,
  id: "badtv",
  content: "This is a very bad TV",
- product: #tv
+ product: #tv // link to Product 
 }
 
 from Review r select r.content
@@ -74,21 +63,9 @@ insert Review {
 
 // linking reviews and products with update
 update Product p where p.@id == #radio 
-set {
-  review +: [#goodradio]
-}
-
-from Product p, Review r
-select p.name, r.content
-where p.review == r.@id
-
-// bug: don't select p.review
-//from Product p, Review r 
-//select p.name, r.content 
-//where p.name == "TV", r.@id == p.review
+set { review +: [#goodradio] }
 
 
-// using an inverse
 from Product p, Review r
 select p.name, r.content
 where p.name == "TV", r.product == p.@id
