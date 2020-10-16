@@ -4,6 +4,8 @@
 //////  
  
 
+// Basic insertion
+
 insert Address {
   @id: #scp,
   streetName: "Science Park",
@@ -13,8 +15,11 @@ insert Address {
   country: "NL"
 }
 
+// A simple query
 
-from Address a select a.city
+from Address a select a.streetName, a.city
+
+// Insertion with link to other entity
 
 insert User {
   @id: #joe,
@@ -22,10 +27,19 @@ insert User {
   name: "Joey",
   paymentsDetails: "",
   comments: "I'm a sample user",
-  address: #scp
+  address: #scp  // <--- use id of Address
 }
 
-from User u select u.name
+
+// Query with a join
+
+from User u, Address a 
+select u.name, a.city
+where u.address == a
+
+
+
+// Cross DB ops
 
 insert Product {
   @id: #tv,
@@ -34,15 +48,8 @@ insert Product {
   description: "Very flat"
 }
 
-insert Product {
-  @id: #radio,
-  id: "radio",
-  name: "Radio",
-  description: "Old Skool"
-}
 
-
-from Product p select p.name
+// Inserting into Mongo with link to SQL entity
 
 insert Review {
  @id: #badtv,
@@ -51,36 +58,51 @@ insert Review {
  product: #tv // link to Product 
 }
 
-from Review r select r.content
+// Cross DB join
 
-// insert lone, and than add
+from Product p, Review r 
+select p.name, r.content
+where p.review == r
+
+
+// Stand-alone insert, update reference later
 
 insert Review {
- @id: #goodradio,
- id: "goodradio",
- content: "Nice sound"
+ @id: #goodtv,
+ id: "goodtv",
+ content: "Good image quality"
 }
 
-// linking reviews and products with update
-update Product p where p.@id == #radio 
-set { review +: [#goodradio] }
+// Linking reviews and products with update
 
+update Product p 
+where p.@id == #tv 
+set { review +: [#goodtv] }
+
+
+// Retrieve all reviews per tv
 
 from Product p, Review r
 select p.name, r.content
-where p.name == "TV", r.product == p.@id
+where p.review == r
 
+
+// Deleting users does not delete their addresses
 
 delete User u where u.name == "Joey"
 
 // no cascade delete 
-from Address a select a.city
+from Address a 
+select a.city
 
 // but products own reviews
-delete Product p where p.name == "TV"
+delete Product p 
+where p.name == "TV"
+
 
 // no more reviews for #tv
-from Review r select r.content
+from Review r 
+select r.content
 where r.product == #tv
 
 

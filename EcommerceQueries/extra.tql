@@ -6,3 +6,10 @@ insert Address {
   city: "New York City",
   country: "USA"
 }
+
+insert Product {
+  @id: #radio,
+  id: "radio",
+  name: "Radio",
+  description: "Old Skool"
+}
