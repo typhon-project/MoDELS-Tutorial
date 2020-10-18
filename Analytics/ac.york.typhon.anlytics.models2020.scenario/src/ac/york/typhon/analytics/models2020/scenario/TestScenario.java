@@ -36,24 +36,23 @@ public class TestScenario implements IAnalyzer {
 			}
 		})
 		.assignTimestampsAndWatermarks(new BoundedOutOfOrdernessGenerator())
-		.map(new MapFunction<DeserializedPostEvent, Tuple3<String, Integer, String>>() {
+		.map(new MapFunction<DeserializedPostEvent, Tuple2<String, Integer>>() {
 
 			@Override
-			public Tuple3<String, Integer, String> map(DeserializedPostEvent value) throws Exception {
+			public Tuple2<String, Integer> map(DeserializedPostEvent value) throws Exception {
 				String idFirstPart = value.getPreEvent().getQuery().split("p.@id == #")[1];
 				String id = idFirstPart.substring(0, idFirstPart.length() - 2);
-				String eventTime = value.getStartTime().toString();
-				Tuple3<String, Integer, String> tuple = new Tuple3<String, Integer, String>(id, 1, eventTime);
+				Tuple2<String, Integer> tuple = new Tuple2<String, Integer>(id, 1);
 				return tuple;
 			}
 		})
 		.keyBy(0)
 		.timeWindow(Time.seconds(15))
 		.sum(1)
-		.map(new MapFunction<Tuple3<String,Integer, String>, Tuple3<String,Integer, String>>() {
+		.map(new MapFunction<Tuple2<String,Integer>, Tuple2<String,Integer>>() {
 
 			@Override
-			public Tuple3<String, Integer, String> map(Tuple3<String, Integer, String> value) throws Exception {
+			public Tuple2<String, Integer> map(Tuple2<String, Integer> value) throws Exception {
 				System.out.println("Product with id: " + value.f0 + " has been visited " + value.f1 + " times.");
 				return value;
 			}

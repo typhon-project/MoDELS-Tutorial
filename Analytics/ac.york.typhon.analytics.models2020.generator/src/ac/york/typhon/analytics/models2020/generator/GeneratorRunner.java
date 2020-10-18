@@ -11,7 +11,7 @@ import java.util.Base64;
 public class GeneratorRunner {
 	
 	final static int NUM_OF_PRODUCTS = 50;
-	final static int NUM_OF_THREADS = 100;
+	final static int NUM_OF_THREADS = 200;
 
 	public static void main(String[] args) {
 

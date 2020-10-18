@@ -13,7 +13,7 @@ import java.util.Base64;
 
 public class QueryThread implements Runnable {
 
-	final static int NUM_OF_SELECTS = 2;
+	final static int NUM_OF_SELECTS = 5;
 	ArrayList<String> productUUIDs = new ArrayList<String>();
 	WebResource webResource;
 	String authStringEnc;
